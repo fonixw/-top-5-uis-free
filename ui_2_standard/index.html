@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In App</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.23.0/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('wal.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 90%;
+      max-width: 1200px;
+      height: 80vh;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      padding: 2rem;
+      overflow: hidden;
+    }
+    .welcome-section {
+      color: white;
+      flex: 1;
+      padding: 2rem;
+    }
+    .welcome-section h1 {
+      font-size: 4rem;
+      margin: 0;
+    }
+    .welcome-section p {
+      font-size: 1.2rem;
+      color: #ddd;
+    }
+    .welcome-section .learn-more {
+      background: #ff4500;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 20px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+    .login-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+      color: white;
+    }
+    .login-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .login-card input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: transparent;
+      color: white;
+    }
+    .login-card button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #ff4500;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .login-card button:hover {
+      background: #e03e00;
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .social-icons a {
+      color: white;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const SignIn = () => {
+      const [username, setUsername] = React.useState('TechTree');
+      const [password, setPassword] = React.useState('');
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (username && password) {
+          alert(`Sign in successful! Welcome, ${username}!`);
+          // Add sign-in logic here (e.g., API call)
+        } else {
+          alert('Please fill all fields.');
+        }
+      };
+
+      return (
+        <div className="container">
+          <div className="welcome-section">
+            <h1>||</h1>
+            <h1>Welcome!</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <a href="#" className="learn-more">Learn More</a>
+          </div>
+          <div className="login-card">
+            <h2>Sign in</h2>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="User Name"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button type="submit">Submit</button>
+            </form>
+            <div className="social-icons">
+              <a href="#">f</a>
+              <a href="#">@</a>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<SignIn />, document.getElementById('root'));
+  </script>
+</body>
+</html>

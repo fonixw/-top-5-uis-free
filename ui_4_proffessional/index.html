@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nature Login/Register</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.23.0/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background: url('wal.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      display: flex;
+      width: 90%;
+      max-width: 1000px;
+      height: 80vh;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      margin-top: 20px; /* Adjusted to remove top bar space */
+    }
+    .image-section {
+      flex: 1;
+      background: rgba(0, 128, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .image-section img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .auth-section {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(144, 238, 144, 0.1);
+      position: relative;
+    }
+    .auth-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #006400;
+    }
+    .auth-section .toggle-btn {
+      background: #228B22;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      transition: background 0.3s ease;
+    }
+    .auth-section .toggle-btn:hover {
+      background: #2E8B57;
+    }
+    .auth-section form {
+      width: 100%;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .auth-section .form-slide {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .auth-section .form-slide-hidden {
+      opacity: 0;
+      transform: translateX(100%);
+      position: absolute;
+      width: 100%;
+    }
+    .auth-section input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: #fff;
+    }
+    .auth-section .forgot-password {
+      align-self: flex-start;
+      color: #006400;
+      text-decoration: underline;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+    .auth-section button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #228B22;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .auth-section button:hover {
+      background: #2E8B57;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const LoginForm = ({ onSwitch }) => {
+      const [username, setUsername] = React.useState('');
+      const [password, setPassword] = React.useState('');
+
+      const handleLogin = (e) => {
+        e.preventDefault();
+        if (username && password) {
+          alert(`Login successful! Welcome, ${username}!`);
+          // Add login logic here (e.g., API call)
+        } else {
+          alert('Please fill all fields.');
+        }
+      };
+
+      return (
+        <form onSubmit={handleLogin} className="form-slide">
+          <input
+            type="text"
+            placeholder="@username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <div className="forgot-password" onClick={() => alert('Forgot Password feature not implemented.')}>Forgot Password ?</div>
+          <button type="submit">LOGIN</button>
+        </form>
+      );
+    };
+
+    const RegisterForm = ({ onSwitch }) => {
+      const [username, setUsername] = React.useState('');
+      const [password, setPassword] = React.useState('');
+      const [confirmPassword, setConfirmPassword] = React.useState('');
+
+      const handleRegister = (e) => {
+        e.preventDefault();
+        if (username && password && password === confirmPassword) {
+          alert(`Registration successful! Welcome, ${username}!`);
+          // Add registration logic here (e.g., API call)
+        } else {
+          alert('Passwords do not match or fields are incomplete.');
+        }
+      };
+
+      return (
+        <form onSubmit={handleRegister} className="form-slide">
+          <input
+            type="text"
+            placeholder="@username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <button type="submit">REGISTER</button>
+        </form>
+      );
+    };
+
+    const App = () => {
+      const [mode, setMode] = React.useState('login');
+      const [showForm, setShowForm] = React.useState(true);
+
+      const handleSwitch = (newMode) => {
+        setShowForm(false);
+        setTimeout(() => {
+          setMode(newMode);
+          setShowForm(true);
+        }, 500);
+      };
+
+      return (
+        <div>
+          <div className="container">
+            <div className="image-section">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 10 L70 40 L30 40 Z' fill='none' stroke='%23006400' stroke-width='5'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23006400' stroke-width='5'/%3E%3Cpath d='M50 80 L70 50 L30 50 Z' fill='none' stroke='%23006400' stroke-width='5'/%3E%3C/svg%3E" alt="Leaf Logo" />
+            </div>
+            <div className="auth-section">
+              <h2>Welcome !</h2>
+              <button className="toggle-btn" onClick={() => handleSwitch(mode === 'login' ? 'register' : 'login')}>
+                {mode === 'login' ? 'Switch to Register' : 'Switch to Login'}
+              </button>
+              <div>
+                {showForm && (mode === 'login' ? <LoginForm onSwitch={handleSwitch} /> : <RegisterForm onSwitch={handleSwitch} />)}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>

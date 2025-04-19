@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fantasy Login/Register</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.23.0/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('wal.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+      max-width: 400px;
+      height: 80vh;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+    .auth-card {
+      width: 100%;
+      text-align: center;
+      color: #333;
+      position: relative;
+    }
+    .auth-card h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #fff;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+    .auth-card .toggle-btn {
+      background: #ff6b6b;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      transition: background 0.3s ease;
+    }
+    .auth-card .toggle-btn:hover {
+      background: #e63946;
+    }
+    .auth-card form {
+      width: 100%;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .auth-card .form-slide {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .auth-card .form-slide-hidden {
+      opacity: 0;
+      transform: translateX(100%);
+      position: absolute;
+      width: 100%;
+    }
+    .auth-card input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+    }
+    .auth-card input:focus {
+      border-color: #ff6b6b;
+      box-shadow: 0 0 5px #ff6b6b;
+    }
+    .auth-card .options {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    .auth-card .options label {
+      display: flex;
+      align-items: center;
+    }
+    .auth-card .options input[type="checkbox"] {
+      margin-right: 0.5rem;
+    }
+    .auth-card .forgot-password {
+      color: #ff6b6b;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .auth-card button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .auth-card button:hover {
+      background: #e63946;
+    }
+    .auth-card .register-link {
+      margin-top: 1rem;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+    .auth-card .register-link a {
+      color: #ff6b6b;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+    .auth-card .register-link a:hover {
+      color: #e63946;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const LoginForm = ({ onSwitch }) => {
+      const [email, setEmail] = React.useState('');
+      const [password, setPassword] = React.useState('');
+      const [rememberMe, setRememberMe] = React.useState(false);
+
+      const handleLogin = (e) => {
+        e.preventDefault();
+        if (email && password) {
+          alert(`Login successful! Welcome, ${email.split('@')[0]}!`);
+          // Add login logic here (e.g., API call)
+        } else {
+          alert('Please fill all fields.');
+        }
+      };
+
+      return (
+        <form onSubmit={handleLogin} className="form-slide">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <div className="options">
+            <label>
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              /> Remember me
+            </label>
+            <span className="forgot-password" onClick={() => alert('Forgot Password feature not implemented.')}>Forgot Password?</span>
+          </div>
+          <button type="submit">Login</button>
+          <div className="register-link">
+            Don't have an account? <a href="#" onClick={(e) => { e.preventDefault(); onSwitch('register'); }}>Register</a>
+          </div>
+        </form>
+      );
+    };
+
+    const RegisterForm = ({ onSwitch }) => {
+      const [email, setEmail] = React.useState('');
+      const [password, setPassword] = React.useState('');
+      const [confirmPassword, setConfirmPassword] = React.useState('');
+
+      const handleRegister = (e) => {
+        e.preventDefault();
+        if (email && password && password === confirmPassword) {
+          alert(`Registration successful! Welcome, ${email.split('@')[0]}!`);
+          // Add registration logic here (e.g., API call)
+        } else {
+          alert('Passwords do not match or fields are incomplete.');
+        }
+      };
+
+      return (
+        <form onSubmit={handleRegister} className="form-slide">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <button type="submit">Register</button>
+          <div className="register-link">
+            Already have an account? <a href="#" onClick={(e) => { e.preventDefault(); onSwitch('login'); }}>Login</a>
+          </div>
+        </form>
+      );
+    };
+
+    const App = () => {
+      const [mode, setMode] = React.useState('login');
+      const [showForm, setShowForm] = React.useState(true);
+
+      const handleSwitch = (newMode) => {
+        setShowForm(false);
+        setTimeout(() => {
+          setMode(newMode);
+          setShowForm(true);
+        }, 500);
+      };
+
+      return (
+        <div className="container">
+          <div className="auth-card">
+            <h2>{mode === 'login' ? 'Login' : 'Register'}</h2>
+            <button className="toggle-btn" onClick={() => handleSwitch(mode === 'login' ? 'register' : 'login')}>
+              {mode === 'login' ? 'Switch to Register' : 'Switch to Login'}
+            </button>
+            <div>
+              {showForm && (mode === 'login' ? <LoginForm onSwitch={handleSwitch} /> : <RegisterForm onSwitch={handleSwitch} />)}
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration App</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.23.0/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('wal.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+    }
+    .registration-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+    .nav {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 2rem;
+    }
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+    .login-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    input {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const RegistrationForm = ({ onSwitch }) => {
+      const [name, setName] = React.useState('');
+      const [email, setEmail] = React.useState('');
+      const [password, setPassword] = React.useState('');
+      const [agree, setAgree] = React.useState(false);
+
+      const handleRegister = (e) => {
+        e.preventDefault();
+        if (name && email && password && agree) {
+          alert(`Registration successful! Welcome, ${name}!`);
+          // Add registration logic here (e.g., API call)
+        } else {
+          alert('Please fill all fields and agree to Terms & Conditions.');
+        }
+      };
+
+      return (
+        <div className="registration-card">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-white text-xl font-bold">Registration</h2>
+            <button className="text-white" onClick={onSwitch}>×</button>
+          </div>
+          <form onSubmit={handleRegister}>
+            <div className="mb-4">
+              <input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full p-2 rounded bg-transparent border border-white text-white"
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full p-2 rounded bg-transparent border border-white text-white"
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full p-2 rounded bg-transparent border border-white text-white"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={agree}
+                  onChange={(e) => setAgree(e.target.checked)}
+                  className="mr-2"
+                />
+                <span className="text-white text-sm">I agree to the Terms & Conditions</span>
+              </label>
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-purple-700 text-white p-2 rounded hover:bg-purple-800"
+            >
+              Register
+            </button>
+            <p className="text-white text-center mt-4">
+              Already have an account? <a href="#" onClick={onSwitch} className="text-purple-300">Login</a>
+            </p>
+          </form>
+        </div>
+      );
+    };
+
+    const LoginForm = ({ onSwitch }) => {
+      const [email, setEmail] = React.useState('');
+      const [password, setPassword] = React.useState('');
+
+      const handleLogin = (e) => {
+        e.preventDefault();
+        if (email && password) {
+          alert(`Login successful! Welcome back!`);
+          // Add login logic here (e.g., API call)
+        } else {
+          alert('Please fill all fields.');
+        }
+      };
+
+      return (
+        <div className="registration-card">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-white text-xl font-bold">Login</h2>
+            <button className="text-white" onClick={onSwitch}>×</button>
+          </div>
+          <form onSubmit={handleLogin}>
+            <div className="mb-4">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full p-2 rounded bg-transparent border border-white text-white"
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full p-2 rounded bg-transparent border border-white text-white"
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-purple-700 text-white p-2 rounded hover:bg-purple-800"
+            >
+              Login
+            </button>
+            <p className="text-white text-center mt-4">
+              Don’t have an account? <a href="#" onClick={onSwitch} className="text-purple-300">Register</a>
+            </p>
+          </form>
+        </div>
+      );
+    };
+
+    const App = () => {
+      const [isLogin, setIsLogin] = React.useState(false);
+
+      return (
+        <div>
+          <div className="nav">
+            <a href="#">Home</a>
+            <a href="#">Service</a>
+            <a href="#">Contact</a>
+            <a href="#">About</a>
+          </div>
+          <button
+            className="login-btn bg-white text-purple-700 px-4 py-2 rounded"
+            onClick={() => setIsLogin(!isLogin)}
+          >
+            {isLogin ? 'Register' : 'Login'}
+          </button>
+          {isLogin ? <LoginForm onSwitch={() => setIsLogin(false)} /> : <RegistrationForm onSwitch={() => setIsLogin(true)} />}
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
